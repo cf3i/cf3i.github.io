@@ -1,0 +1,27 @@
+{% assign news_by_year = site.news | sort: "date" | reverse | slice: 0, include.limit | group_by_exp: "item", "item.date | date: '%Y'" %}
+
+<section class="content-card card border-0 shadow-sm bg-white" id="news">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Updates</span>
+      <h2>News</h2>
+    </div>
+    <i class="fa-solid fa-satellite-dish section-icon" aria-hidden="true"></i>
+  </div>
+
+  <div class="news-list">
+    {% for year in news_by_year %}
+      <div class="news-year-group">
+        <div class="news-year">{{ year.name }}</div>
+        <div class="news-items">
+          {% for item in year.items %}
+            <article class="news-item">
+              <div>{{ item.title }}</div>
+              <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%b %d" }}</time>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<section class="content-card card border-0 shadow-sm bg-white" id="publications">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Selected work</span>
+      <h2>Publications</h2>
+    </div>
+    <a class="section-link" href="{{ '/publications/' | relative_url }}">View all <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+
+  <div class="publication-list">
+    {% for item in include.publications %}
+      {% include widgets/publication_item.html item=item last=forloop.last %}
+    {% endfor %}
+  </div>
+</section>

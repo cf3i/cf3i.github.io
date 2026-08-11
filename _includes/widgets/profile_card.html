@@ -1,0 +1,40 @@
+<div class="profile-card card border-0 shadow-sm bg-white sticky-top">
+  <div class="card-body p-4 text-center">
+    <a href="{{ site.data.profile.portrait_url | relative_url }}" aria-label="Open portrait">
+      <img
+        class="profile-portrait"
+        src="{{ site.data.profile.portrait_url | relative_url }}"
+        alt="Portrait of {{ site.data.profile.primary_name }}"
+        title="{{ site.data.profile.portrait_caption }}"
+      >
+    </a>
+
+    <h1 class="profile-name">
+      {{ site.data.profile.primary_name }}
+      {% if site.data.profile.secondary_name %}<span>{{ site.data.profile.secondary_name }}</span>{% endif %}
+    </h1>
+
+    <div class="profile-positions">
+      {% for position in site.data.profile.positions %}
+        <div>{{ position.name }}</div>
+      {% endfor %}
+    </div>
+
+    <a class="profile-email" href="mailto:{{ site.data.profile.email }}">
+      {{ site.data.profile.email | replace: "@", " (at) " }}
+    </a>
+
+    <div class="profile-links" aria-label="Social profiles">
+      {% if site.data.profile.github %}
+        <a href="https://github.com/{{ site.data.profile.github }}" target="_blank" rel="me noopener" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      {% endif %}
+      {% if site.data.profile.twitter %}
+        <a href="https://x.com/{{ site.data.profile.twitter }}" target="_blank" rel="me noopener" aria-label="X">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

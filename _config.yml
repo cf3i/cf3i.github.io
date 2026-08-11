@@ -1,0 +1,19 @@
+title: "Chao Fei"
+description: "Chao Fei's academic homepage and publications."
+url: "https://cf3i.github.io"
+baseurl: ""
+timezone: Asia/Shanghai
+
+markdown: kramdown
+
+collections:
+  publications:
+    output: false
+  news:
+    output: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

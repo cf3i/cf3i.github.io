@@ -1,85 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title id="my-name">Chao Fei</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/normalize.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/site.css"> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <div id="self">
-    <h1>Chao Fei (费超)</h1>
-    <a href="./assets/imags/portrait.jpg"> <img style="width: 180px;" src="./assets/imags/portrait.jpg" title="Credits to my beloved girlfriend!"/> </a>
-      <div id="info">
-        <div> Ph.D.</div>
-        <div> <a href="https://cemse.kaust.edu.sa/cs">Computer Science</a></div>
-        <div> <a href="https://cemse.kaust.edu.sa/" title="Computer, Electrical, and Mathematical Sciences and Engineering">CEMSE Division</a></div>
-        <div title="Click to get my KAUST email address." id="email"> <a href="#"> chao.fei at kaust.edu.sa </a></div>
-        <div>KAUST, Thuwal, 23955-6900 </div>
-      </div>
-    </div>
-    <h2>Bio </h2>
-    <p>
-        I am an Ph.D. student at <a href="https://www.kaust.edu.sa/en">KAUST</a> under the supervision of Prof. <a href="https://www.kalnis.org/">Panos Kalnis</a>. My research interests include machine-learning systems, system acceleration, and distributed ML inference.
-    </p>
+---
+layout: default
+title: Home
+navbar_title: Home
+---
 
+<div class="row">
+  <aside class="col-lg-3 col-md-4">
+    {% include widgets/profile_card.html %}
+  </aside>
 
+  <div class="col-lg-9 col-md-8">
+    {% include widgets/bio_card.html %}
 
-    <h2>Publications</h2>
-    <div>
-        <b>PolyKV: Heterogeneous Retention and Allocation for KV Cache Compression</b><br/>
-        <b>Chao Fei</b>, Panos Kalnis<br/>
-        <i>arXiv preprint: </i>
-        <a href="https://arxiv.org/abs/2606.15157">arXiv:2606.15157</a>
-    </div>
+    {% if site.data.display.homepage.show_news %}
+      {% assign count_news = site.news | size %}
+      {% if count_news > 0 %}
+        {% include widgets/news_card.html limit=site.data.display.homepage.num_news %}
+      {% endif %}
+    {% endif %}
 
-    <div>
-        <b>CHESS: Context-aware Hierarchical Efficient Semantic Selection for Long-Context LLM Inference</b><br/>
-        <b>Chao Fei</b>, Guozhong Li, Chenxi Liu, Panos Kalnis<br/>
-        <i>arXiv preprint: </i>
-        <a href="https://arxiv.org/abs/2602.20732">arXiv:2602.20732</a>
-    </div>
-
-    <h2>News 🎉</h2>
-    <div>
-        <b>June 2026:</b> I started working with Prof. <a href="https://scholar.google.com/citations?user=eynbo4cAAAAJ&hl=en">Hongcheng Guo</a>'s lab at Fudan University for this Summer. We are very happy to collaborate on Multi-Agent Systems and we have launched several projects together.
-    </div>
-
-    <div>
-        <b>Aug 2025:</b> I successfully concluded my internship. During the internship, I helped open-source the codebase for KunServe. I am grateful to the professors and fellow students I met for their guidance and support.
-    </div>
-
-    <div>
-        <b>May 2025:</b> From May to late Augest, 2025, I will join the <a href="https://ipads.se.sjtu.edu.cn/start">IPADS</a> group at Shanghai Jiao Tong University under the supervision of Prof. <a href="http://xmm4ok69.com/">Xingda Wei</a>. My research will focus on elastic LLM serving, specifically the <a href="https://arxiv.org/pdf/2412.18169">KUNSERVE</a> system.
-    </div>
-
-    <div id="elsewhere" style="margin-top: 2em; text-align: center;">
-      <span class="github"><img src="./assets/imags/github-64px.png" width="16px" height="16px" style="vertical-align: middle;" /> <a href="https://github.com/cf3i" rel="me">cfei</a></span>
-      |
-      <span class="twitter"><img src="./assets/imags/x_icon-512.webp" width="16px" height="16px" style="vertical-align: middle;" /> <a href="https://x.com/cfei0621" rel="me">Chao Fei</a></span>
-    </div>
-    <script>
-      function render_email_addr(id, midfix) {
-	var raw = $(id).text();
-	if (raw.includes(' -at- ')) {
-          var prefix = $.trim($('#my-name').text().toLowerCase().replace(' ', '.'));
-          var suffix = $.trim(raw.split(' -at- ')[1]);
-          var txt = $.trim((prefix + midfix + String.fromCharCode(64) + suffix));
-	  $(id + ' > a').text(txt);
-	} else {
-	  $(id + ' > a').attr("href", 'mailto:' + raw);
-	}
-      }
-      $('#email').click(function() {
-	render_email_addr('#email', '')
-      });
-      $('#personal-email').click(function() {
-	render_email_addr('#personal-email', '465')
-      });
-      $('#hirephd').click(function() {
-	render_email_addr('#hirephd', '.hirephd')
-      });
-    </script>
-  </body>
-<html>
+    {% if site.data.display.homepage.show_selected_publications %}
+      {% assign publications = site.publications | sort: "date" | reverse | where: "selected", true %}
+      {% include widgets/publication_card.html publications=publications %}
+    {% endif %}
+  </div>
+</div>

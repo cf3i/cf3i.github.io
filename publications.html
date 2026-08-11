@@ -1,0 +1,37 @@
+---
+layout: default
+title: Publications
+navbar_title: Publications
+permalink: /publications/
+---
+
+{% assign publications_by_year = site.publications | sort: "date" | reverse | group_by_exp: "item", "item.date | date: '%Y'" %}
+
+<div class="row">
+  <div class="col-12 col-lg-10">
+    <div class="page-heading">
+      <span class="eyebrow">Research</span>
+      <h1>Publications</h1>
+      <p>Research on efficient machine learning systems, long-context inference, and multi-agent systems.</p>
+    </div>
+
+    {% for year in publications_by_year %}
+      <section class="publication-year" id="year-{{ year.name }}">
+        <h2>{{ year.name }}</h2>
+        <div class="publication-list card border-0 shadow-sm bg-white">
+          {% for item in year.items %}
+            {% include widgets/publication_item.html item=item last=forloop.last %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+
+  <div class="col-2 d-none d-lg-block">
+    <nav class="year-nav sticky-top" aria-label="Publication years">
+      {% for year in publications_by_year %}
+        <a href="#year-{{ year.name }}">{{ year.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</div>
